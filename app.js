@@ -12,7 +12,7 @@ const shows = [
 const app = document.querySelector("#app");
 function render(){
  const match=location.hash.match(/^#\/(0|1)\/(0|1|2)$/);
- if(!match){app.innerHTML='<h1>שני רעיונות לרדיו</h1><p>בחרו פודקאסט והאזינו לדוגמיות.</p><div class="grid">'+shows.map((s,i)=>'<a class="card" href="#/'+i+'/0"><img src="cover'+i+'.png" alt=""><h2>'+s.title+'</h2><p>'+s.tag+'</p></a>').join("")+'</div>';return;}
+ if(!match){app.innerHTML='<p>בחרו פודקאסט והאזינו לדוגמיות.</p><div class="grid">'+shows.map((s,i)=>'<a class="card" href="#/'+i+'/0"><img src="cover'+i+'.png" alt=""><h2>'+s.title+'</h2><p>'+s.tag+'</p></a>').join("")+'</div>';return;}
  const i=Number(match[1]),j=Number(match[2]),s=shows[i],item=s.episodes[j];
  app.innerHTML='<a href="#">← כל הפודקאסטים</a><div class="hero"><img src="cover'+i+'.png" alt=""><div><h1>'+s.title+'</h1><p>'+s.tag+'</p></div></div><nav class="episodes" aria-label="פרקים">'+s.episodes.map((e,k)=>'<a '+(k===j?'aria-current="page" ':'')+'href="#/'+i+'/'+k+'">'+(k+1)+'. '+e[0]+'</a>').join("")+'</nav><article><h2>'+item[0]+'</h2><p>'+item[1]+'</p><strong>דוגמית בקריינות סינתטית</strong><audio controls preload="none" src="sample'+i+j+'.wav"></audio><details><summary>תמליל הדוגמית</summary><p>'+item[2]+'</p></details></article>';
 }
