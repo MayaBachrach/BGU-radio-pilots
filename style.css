@@ -61,132 +61,72 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-of
 .samples { overflow-x: clip; }
 .samples article { animation: none; }
 
-/* Phone home presents the shows in reading order, one above the other. */
-@media (max-width: 600px) {
-  .home .grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
-    max-width: 440px;
-    margin-inline: auto;
-  }
-  .home .card {
-    display: grid;
-    grid-template-columns: minmax(110px, 40%) minmax(0, 1fr);
-    align-items: center;
-  }
-  .home .card .cover { width: 100%; }
-  .home .card-copy { padding: 14px; }
-  .home .card h2 { font-size: 21px; }
-  .home .card p { font-size: 14px; margin-bottom: 10px; }
-}
-@media (max-width: 360px), (max-height: 650px) and (max-width: 600px) {
-  .home .card-copy { padding: 10px; }
-  .home .card h2 { font-size: 19px; }
-  .home .card p { font-size: 12px; line-height: 1.45; }
-  .home .open-label { font-size: 12px; }
-}
 
-/* Let the two pitches occupy the space between the header and credit. */
-body:has(main.home) { min-height: 100svh; }
+/* Open editorial compositions: artwork and type share the page, not a box. */
 main.home {
-  flex: 1;
-  display: flex;
-  width: 100%;
-  max-width: 1400px;
-  margin-block: 0;
-  padding: clamp(16px, 3vw, 36px);
+  flex: 1; display: flex; width: 100%; max-width: 1240px;
+  margin-block: 0; padding: 24px 40px 12px;
 }
 .home .grid {
-  flex: 1;
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  align-items: stretch;
+  flex: 1; width: 100%; max-width: none; margin: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 6vw, 88px); align-items: start;
 }
 .home .card {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
+  display: grid; grid-template-columns: 1fr;
+  align-content: start; min-width: 0; overflow: visible;
+  border: 0; border-radius: 16px; background: transparent;
 }
 .home .card .cover {
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  aspect-ratio: auto;
-  background: #19171d;
+  width: min(100%, max(240px, calc(100svh - 340px)));
+  max-width: 440px; justify-self: start;
+  aspect-ratio: 1; border-radius: 24px; overflow: hidden;
 }
-.home .card .cover > img:first-child {
-  position: absolute;
-  inset: 0;
-  object-fit: contain;
+.home .card-copy { padding: 20px 0 0; }
+.home .card h2 {
+  font-size: clamp(36px, 4.6vw, 66px); letter-spacing: -2px;
+  line-height: 1.05; margin: 0 0 14px;
 }
-.home .card-copy { padding: 18px 22px; }
-.home .card h2 { font-size: clamp(22px, 2.4vw, 32px); }
-.home .card p { font-size: 16px; }
+.home .card p { max-width: 30ch; font-size: 17px; line-height: 1.5; margin: 0 0 8px; }
+.home .open-label {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-size: 14px; color: var(--accent);
+}
 body:has(main.home) footer { margin-top: 0; }
-@media (min-width: 601px) {
-  main.home { min-height: 530px; }
+@media (hover:hover) and (pointer:fine) {
+  .home .card:hover { background: transparent; color: var(--accent); }
+  .home .card:hover p { color: #fff4fa; }
+  .home .card:hover .open-label { color: var(--accent); }
 }
-@media (max-width: 600px) {
-  main.home { padding: 12px 16px; min-height: 460px; }
+@media (max-width:600px) {
+  main.home { padding: 20px 20px 8px; }
   .home .grid {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    max-width: none;
-    margin: 0;
+    grid-template-columns: minmax(0,1fr); grid-template-rows: auto auto;
+    align-content: space-between; gap: 24px;
   }
   .home .card {
-    display: grid;
-    grid-template-columns: minmax(0, 46%) minmax(0, 54%);
-    align-items: stretch;
+    grid-template-columns: minmax(0,56%) minmax(0,44%);
+    grid-template-rows: auto auto; column-gap: 0; row-gap: 0;
   }
-  .home .card .cover { height: 100%; }
-  .home .card-copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 14px;
+  .home .card .cover { width: 100%; max-width: none; grid-column: 1; grid-row: 1; border-radius: 20px; }
+  .home .card-copy { display: contents; }
+  .home .card h2 {
+    grid-column: 1 / -1; grid-row: 2; font-size: clamp(34px,10vw,46px);
+    letter-spacing: -1.4px; margin: 10px 0 0; line-height: 1;
   }
-  .home .card h2 { font-size: clamp(21px, 6vw, 28px); }
-  .home .card p { font-size: 14px; margin-bottom: 14px; }
-  .home .open-label { font-size: 13px; }
-}
-
-/* Square artwork keeps the station mark attached to the actual cover. */
-.home .card .cover {
-  flex: none;
-  aspect-ratio: 1;
-  height: auto;
-  min-height: 0;
-  align-self: center;
-  background: transparent;
-}
-.home .card .cover > img:first-child {
-  position: static;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-@media (min-width: 601px) {
-  main.home { min-height: 0; max-width: 1120px; align-items: center; }
-  .home .grid { align-items: start; }
-  .home .card .cover {
-    width: 100%;
+  .home .card p {
+    grid-column: 2; grid-row: 1; align-self: start;
+    padding: 8px 16px 44px 0; margin: 0; font-size: 14px; line-height: 1.55;
   }
-  .home .grid {
-    max-width: min(100%, max(420px, calc(200svh - 700px)));
-    margin-inline: auto;
+  .home .open-label {
+    grid-column: 2; grid-row: 1; align-self: end; margin-right: 16px;
+    font-size: 12px; line-height: 1.4; min-height: 44px;
   }
 }
-@media (max-width: 600px) {
-  main.home { min-height: 0; align-items: center; }
-  .home .grid { grid-template-rows: auto auto; gap: 16px; }
-  .home .card {
-    grid-template-columns: minmax(0, 48%) minmax(0, 52%);
-    align-items: center;
-  }
-  .home .card .cover { width: 100%; height: auto; }
-  .home .card-copy { padding: 14px; }
+@media (max-width:600px) and (max-height:680px) {
+  main.home { padding-top: 12px; }
+  .home .grid { gap: 16px; }
+  .home .card .cover { width: min(100%, 25svh); }
+  .home .card h2 { font-size: 32px; }
+  .home .card p { font-size: 13px; }
 }
