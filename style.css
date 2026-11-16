@@ -195,3 +195,26 @@ body { font-family: "Segoe UI", Arial, sans-serif; }
   .home .open-label { min-height: 44px; font-size: 12px; padding-inline: 16px; }
   body:has(main.home) footer { margin-top: 0; padding-block: 12px; }
 }
+
+/* Mobile grouping: every pitch has its own named, bounded section. */
+@media (max-width:600px) {
+  main.home { padding: 8px 16px; }
+  .home .grid { gap: 12px; }
+  .home .card {
+    padding: 12px; gap: 8px; border: 1px solid #634451;
+    border-radius: 24px; background: #201a22;
+  }
+  .home .card:first-child { border: 1px solid #634451; }
+  .home .card .cover {
+    width: min(100%, clamp(96px, calc((100svh - 430px) / 2), 280px));
+    border-radius: 16px;
+  }
+  .home .card h2 {
+    position: static; width: auto; height: auto; padding: 0;
+    margin: 0 0 4px; overflow: visible; clip-path: none; white-space: normal;
+    font-size: 21px; line-height: 1.15; letter-spacing: 0;
+  }
+  .home .card p { font-size: 14px; margin-bottom: 6px; line-height: 1.4; }
+  .home .open-label { min-height: 44px; }
+  .home .card:active { border-color: var(--accent); }
+}
