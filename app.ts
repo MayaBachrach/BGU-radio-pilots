@@ -19,7 +19,7 @@ const logo = "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_
 function cover(i) {
  return '<div class="cover"><img src="cover'+i+'.png" alt="הקאבר של '+shows[i].title+'"><img class="radio-badge" src="'+logo+'" alt="BGU Radio"></div>';
 }
-function render() {
+function buildPage() {
  const match = location.hash.match(/^#\/(0|1)\/(0|1|2)$/);
  app.className = match ? "show-page" : "home";
  if (!match) {
@@ -29,5 +29,46 @@ function render() {
  const i=Number(match[1]), j=Number(match[2]), s=shows[i], p=pitches[i], item=s.episodes[j];
  app.innerHTML = '<a class="back" href="#">→ לשתי התוכניות</a><div class="show-layout"><section class="intro">'+cover(i)+'<h1>'+s.title+'</h1><p class="lead">'+p.line+'</p></section><div class="show-content"><section><h2>מה שומעים בשידור?</h2><p>'+p.format+'</p></section><section><h2>למה אני רוצה לעשות את זה</h2><p>'+p.why+'</p></section><section class="samples"><h2>טעימה מהתוכנית</h2><nav class="episodes" aria-label="דוגמאות לפרקים">'+s.episodes.map((e,k)=>'<a '+(k===j?'aria-current="page" ':'')+'href="#/'+i+'/'+k+'">'+e[0]+'</a>').join("")+'</nav><article><h3>'+item[0]+'</h3><p>'+item[1]+'</p><audio aria-label="דוגמית '+item[0]+'" controls preload="metadata" src="sample'+i+j+'.wav"></audio><small>דוגמית בקריינות סינתטית</small><details><summary>לקריאת התמליל</summary><p>'+item[2]+'</p></details></article></section></div></div>';
 }
+
+let previousRoute = null;
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+function render() {
+ const route = location.hash.match(/^#\/(0|1)\/(0|1|2)$/);
+ const sameShow = route && previousRoute && route[1] === previousRoute[1];
+ if (sameShow && route[2] === previousRoute[2]) return;
+ if (sameShow) {
+  const i = Number(route[1]);
+  const j = Number(route[2]);
+  const item = shows[i].episodes[j];
+  const outgoing = app.querySelector("article");
+  const incoming = document.createElement("article");
+  incoming.innerHTML = '<h3>'+item[0]+'</h3><p>'+item[1]+'</p><audio aria-label="דוגמית '+item[0]+'" controls preload="metadata" src="sample'+i+j+'.wav"></audio><small>דוגמית בקריינות סינתטית</small><details><summary>לקריאת התמליל</summary><p>'+item[2]+'</p></details>';
+  outgoing.querySelector("audio").pause();
+  app.querySelectorAll(".episodes a").forEach((link, index) => {
+   if (index === j) link.setAttribute("aria-current", "page");
+   else link.removeAttribute("aria-current");
+  });
+  // Increasing episode numbers move left through the RTL tab sequence.
+  const offset = j > Number(previousRoute[2]) ? -40 : 40;
+  outgoing.replaceWith(incoming);
+  if (!reduceMotion.matches) {
+   incoming.animate([
+    { opacity: 0, transform: "translateX("+offset+"px)" },
+    { opacity: 1, transform: "translateX(0)" }
+   ], { duration: 280, easing: "cubic-bezier(.2,.7,.2,1)" });
+  }
+ } else {
+  app.querySelectorAll("audio").forEach(audio => audio.pause());
+  buildPage();
+  if (!reduceMotion.matches && previousRoute && !route) {
+   app.querySelector(".grid").animate([
+    { opacity: 0, transform: "scale(.975)" },
+    { opacity: 1, transform: "scale(1)" }
+   ], { duration: 220, easing: "ease-out" });
+  }
+ }
+ previousRoute = route;
+}
 addEventListener("hashchange", render);
 render();
+
