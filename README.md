@@ -1,2 +1,3 @@
-# BGU-radio-pilots
-A TypeScript demo by Maya Bachrach for two university radio pitches, featuring original cover art and short Hebrew audio previews.
+# BGU Radio Pilots
+
+Two Hebrew radio demos by Maya Bachrach, with six synthetic narration samples.
