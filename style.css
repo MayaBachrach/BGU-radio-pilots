@@ -60,3 +60,28 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-of
 /* Episode transitions are controlled by route direction. */
 .samples { overflow-x: clip; }
 .samples article { animation: none; }
+
+/* Phone home presents the shows in reading order, one above the other. */
+@media (max-width: 600px) {
+  .home .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+  .home .card {
+    display: grid;
+    grid-template-columns: minmax(110px, 40%) minmax(0, 1fr);
+    align-items: center;
+  }
+  .home .card .cover { width: 100%; }
+  .home .card-copy { padding: 14px; }
+  .home .card h2 { font-size: 21px; }
+  .home .card p { font-size: 14px; margin-bottom: 10px; }
+}
+@media (max-width: 360px), (max-height: 650px) and (max-width: 600px) {
+  .home .card-copy { padding: 10px; }
+  .home .card h2 { font-size: 19px; }
+  .home .card p { font-size: 12px; line-height: 1.45; }
+  .home .open-label { font-size: 12px; }
+}
