@@ -248,3 +248,27 @@ body { font-family: "Segoe UI", Arial, sans-serif; }
   .home .open-label { min-height: 44px; }
   body:has(main.home) footer { padding: 8px 8px max(8px,env(safe-area-inset-bottom)); font-size: 11px; }
 }
+
+/* The entire pitch responds consistently to hover, focus, and touch. */
+.home .card {
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+.home .card:focus-visible,
+.home .card:active {
+  background-color: var(--accent); color: #25131e; border-color: var(--accent);
+}
+.home .card:focus-visible p,
+.home .card:active p,
+.home .card:focus-visible .open-label,
+.home .card:active .open-label {
+  color: #25131e; border-color: #754057;
+}
+@media (hover:hover) and (pointer:fine) {
+  .home .card:hover {
+    background-color: var(--accent); color: #25131e; border-color: var(--accent);
+  }
+  .home .card:hover p { color: #25131e; }
+  .home .card:hover .open-label {
+    color: #25131e; border-color: #754057; background-color: transparent;
+  }
+}
