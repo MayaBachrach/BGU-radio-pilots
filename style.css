@@ -227,3 +227,20 @@ main > p, .card p { color: #e3c9d9; }
   .card::after { inset-block-end: 18px; }
   .card p { margin-inline-end: 39px; }
 }
+
+/* Align card actions and keep episode navigation easy to tap. */
+.card::before { inset-inline-end: 12px; inset-block-end: 14px; }
+.card::after {
+  inset-inline-end: 24px;
+  inset-block-end: 26px;
+  filter: none;
+}
+.episodes a { text-wrap: balance; }
+article summary { width: fit-content; padding-inline: 4px; }
+
+@media (max-width: 420px) {
+  .card::before { inset-inline-end: 8px; inset-block-end: 12px; }
+  .card::after { inset-inline-end: 17px; inset-block-end: 20px; }
+  .card h2 { min-height: 0; }
+  .episodes a { min-height: 48px; }
+}
