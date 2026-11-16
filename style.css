@@ -352,3 +352,21 @@ img, audio { max-width: 100%; }
   .home .grid { height: auto; grid-template-rows: auto auto; }
   .home .card .cover { width: min(100%, 160px); height: auto; }
 }
+
+
+/* Phone episode view: lead with playable content, not long pitch paragraphs. */
+@media (max-width: 700px) {
+  .show-page .show-content { display: flex; flex-direction: column; gap: 14px; }
+  .show-page .show-content > section { margin: 0; }
+  .show-page .show-content > .samples { order: -1; }
+  .show-page .samples article { padding: 14px; }
+  .show-page .samples article p { margin-bottom: 6px; }
+  .show-page .samples audio { margin: 10px 0 5px; }
+  .show-page .show-content > section:not(.samples) {
+    border-top: 1px solid #3c303b;
+    padding-top: 14px;
+  }
+  .show-page .intro { margin-bottom: 0; }
+  .show-page .show-layout { gap: 16px; }
+  .show-page .back { min-height: 34px; margin-bottom: 8px; }
+}
