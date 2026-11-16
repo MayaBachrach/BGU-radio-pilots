@@ -293,8 +293,8 @@ main:has(.grid) h1 { font-size: clamp(1.85rem, 5vw, 3.25rem); }
 .card h2 { margin-block: 9px 4px; }
 .card p { line-height: 1.35; }
 .card::before { background: var(--action); }
-.card:nth-child(1) { --hover-fill: #F9DA44; --hover-ink: #151419; }
-.card:nth-child(2) { --hover-fill: #1C49AE; --hover-ink: #fff; }
+.card { --hover-fill: var(--accent); --hover-ink: #151419; }
+.card:hover, .card:focus-visible, .card:active { --action: #fff4fa; }
 
 .card:focus-visible, .card:active {
   background: var(--hover-fill);
