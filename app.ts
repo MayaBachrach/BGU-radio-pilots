@@ -9,13 +9,25 @@ const shows = [
 ["כמה עולה לקנות את עצמך בחזרה?","הבכורה של עשו פוגשת את רכישת המאסטרים של טיילור סוויפט. מה בעצם עובר ידיים בעסקה?","אם כולם יודעים שאלו השירים שלך, איך יכול להיות שאת צריכה לקנות את ההקלטות שלהם בחזרה? דרך העסקה של טיילור סוויפט נחזור לקערת הנזיד של עשו, ולשאלה מה שווה זכות ברגע שבו אפשר למכור אותה."],
 ["ההפתעה שאחרי החגיגה","בפרשת ויצא יעקב מגלה את ההחלפה רק בבוקר. רגע הגילוי נקרא לצד הבלבול באוסקר, מזווית של מי שחגג לפני שקיבל את כל המידע.","דמיינו שכבר התחלתם את נאום הזכייה, ומישהו ניגש לבמה ואומר שהפרס שייך למישהו אחר. עכשיו נחזור לחתונה של יעקב ולרגע שבו הוא מגלה בבוקר מי הייתה איתו בלילה. מה קורה לסיפור כשהגילוי מגיע רק אחרי החגיגה?"]
 ]}];
-const app = document.querySelector("#app");
-function render(){
- const match=location.hash.match(/^#\/(0|1)\/(0|1|2)$/);
- if(!match){app.innerHTML='<p>בחרו פודקאסט והאזינו לדוגמיות.</p><div class="grid">'+shows.map((s,i)=>'<a class="card" href="#/'+i+'/0"><img src="cover'+i+'.png" alt=""><h2>'+s.title+'</h2><p>'+s.tag+'</p></a>').join("")+'</div>';return;}
- const i=Number(match[1]),j=Number(match[2]),s=shows[i],item=s.episodes[j];
- app.innerHTML='<a href="#">← כל הפודקאסטים</a><div class="hero"><img src="cover'+i+'.png" alt=""><div><h1>'+s.title+'</h1><p>'+s.tag+'</p></div></div><nav class="episodes" aria-label="פרקים">'+s.episodes.map((e,k)=>'<a '+(k===j?'aria-current="page" ':'')+'href="#/'+i+'/'+k+'">'+(k+1)+'. '+e[0]+'</a>').join("")+'</nav><article><h2>'+item[0]+'</h2><p>'+item[1]+'</p><strong>דוגמית בקריינות סינתטית</strong><audio controls preload="none" src="sample'+i+j+'.wav"></audio><details><summary>תמליל הדוגמית</summary><p>'+item[2]+'</p></details></article>';
-}
-addEventListener("hashchange",()=>{render();scrollTo(0,0);});
-render();
 
+const pitches = [
+ {line:"אחד יודע, השנייה שואלת. שנינו יוצאים עם משהו חדש בראש.", format:"אני מאיה, ובכל שבוע יובל ואני מתחלפים: אחד מביא נושא שמסקרן אותו, והשני מגיע עם שאלות. מתחילים בצליל, חידה או ניסוי קטן, ומתקדמים דרך ההסברים, הבלבולים והחיבורים שעולים בשיחה. המאזינים יכולים לשלוח שאלות ולהציע את הנושא הבא.", why:"בעולם שבו AI מסכם לנו הכול, בא לי לפנות זמן לסקרנות. לשאול עוד שאלה, להתעכב על מה שלא הבנתי, ולהרגיש את הרגע שבו משהו מתחבר."},
+ {line:"פרשת השבוע פוגשת את תרבות הפופ — ויש להן על מה לדבר.", format:"בכל שבוע אני מתחילה ברגע מתרבות הפופ ומחברת אותו לסיפור מפרשת השבוע. מספרת את שני הסיפורים בקצרה, בודקת איפה הם נפגשים ופותחת שאלה לשיחה עם המאזינים. אפשר להצטרף גם בלי להכיר את הפרשה מראש.", why:"מעניין אותי איך אותם רצונות, קנאה, שאיפות וטעויות חוזרים בסיפורים שלנו. אני רוצה שהפרשה תרגיש נגישה, ושאנשים עם עולמות שונים יגלו שיש להם על מה לדבר."}
+];
+const app = document.querySelector("#app");
+const logo = "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_nologo400/2274164/2274164-1572818167385-c4308c7610376.jpg";
+function cover(i) {
+ return '<div class="cover"><img src="cover'+i+'.png" alt="הקאבר של '+shows[i].title+'"><img class="radio-badge" src="'+logo+'" alt="BGU Radio"></div>';
+}
+function render() {
+ const match = location.hash.match(/^#\/(0|1)\/(0|1|2)$/);
+ app.className = match ? "show-page" : "home";
+ if (!match) {
+  app.innerHTML = '<div class="grid">'+shows.map((s,i)=>'<a class="card" href="#/'+i+'/0">'+cover(i)+'<div class="card-copy"><h2>'+s.title+'</h2><p>'+pitches[i].line+'</p><span class="open-label">לפיץ׳ ולדוגמיות ↖</span></div></a>').join("")+'</div>';
+  return;
+ }
+ const i=Number(match[1]), j=Number(match[2]), s=shows[i], p=pitches[i], item=s.episodes[j];
+ app.innerHTML = '<a class="back" href="#">→ לשתי התוכניות</a><div class="show-layout"><section class="intro">'+cover(i)+'<h1>'+s.title+'</h1><p class="lead">'+p.line+'</p></section><div class="show-content"><section><h2>מה שומעים בשידור?</h2><p>'+p.format+'</p></section><section><h2>למה אני רוצה לעשות את זה</h2><p>'+p.why+'</p></section><section class="samples"><h2>טעימה מהתוכנית</h2><nav class="episodes" aria-label="דוגמאות לפרקים">'+s.episodes.map((e,k)=>'<a '+(k===j?'aria-current="page" ':'')+'href="#/'+i+'/'+k+'">'+e[0]+'</a>').join("")+'</nav><article><h3>'+item[0]+'</h3><p>'+item[1]+'</p><audio aria-label="דוגמית '+item[0]+'" controls preload="metadata" src="sample'+i+j+'.wav"></audio><small>דוגמית בקריינות סינתטית</small><details><summary>לקריאת התמליל</summary><p>'+item[2]+'</p></details></article></section></div></div>';
+}
+addEventListener("hashchange", render);
+render();
