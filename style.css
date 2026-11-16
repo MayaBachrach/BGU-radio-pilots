@@ -56,3 +56,7 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-of
   }
   .card:active .cover > img:first-child { transform: scale(.985); }
 }
+
+/* Episode transitions are controlled by route direction. */
+.samples { overflow-x: clip; }
+.samples article { animation: none; }
