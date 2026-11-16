@@ -26,3 +26,33 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-of
 @media(max-width:600px){main{padding:18px 16px}.grid{gap:12px}.card{border-radius:20px}.card-copy{padding:12px}.card h2{font-size:19px}.card p{font-size:13px;line-height:1.5}.show-layout{display:block}.intro{display:grid;grid-template-columns:100px 1fr;column-gap:16px;margin-bottom:26px}.intro .cover{grid-row:1/3;border-radius:18px}.intro h1{font-size:28px;margin:4px 0 8px}.intro .lead{font-size:16px;margin:0}.show-content h2{font-size:19px}.episodes{display:grid;grid-template-columns:repeat(3,1fr)}.episodes a{padding:8px;font-size:12px;text-align:center;justify-content:center}.back{margin-bottom:14px}}
 @media(max-height:650px){.home .grid{max-width:480px;margin:auto}.home .card-copy{padding:10px}.home .card p{font-size:12px;margin-bottom:6px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Short entrances replay naturally when a show or episode changes. */
+@keyframes radio-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes radio-sample {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home .card { animation: radio-enter 360ms ease-out both; }
+  .home .card:nth-child(2) { animation-delay: 65ms; }
+  .show-layout { animation: radio-enter 280ms ease-out both; }
+  article { animation: radio-sample 240ms ease-out both; }
+  .card .cover > img:first-child {
+    transition: transform 280ms cubic-bezier(.2,.7,.2,1);
+  }
+  .card .cover { overflow: hidden; }
+  .card, .episodes a, .back, summary {
+    transition: background-color 170ms ease, color 170ms ease, border-color 170ms ease;
+  }
+  .open-label { display: inline-block; transition: transform 180ms ease; }
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover .cover > img:first-child { transform: scale(1.025); }
+    .card:hover .open-label { transform: translateX(-3px); }
+    .back:hover { color: #fff4fa; }
+  }
+  .card:active .cover > img:first-child { transform: scale(.985); }
+}
