@@ -135,3 +135,40 @@ body:has(main.home) footer { margin-top: 0; }
   .home .card h2 { font-size: 23px; }
   .home .card p { font-size: 13px; }
 }
+
+/* Review pass: readable type, clear actions, and intentional section rhythm. */
+body { font-family: "Segoe UI", Arial, sans-serif; }
+.home .card h2 { letter-spacing: -.03em; text-wrap: balance; }
+.home .card p { color: #ddd3dc; text-wrap: pretty; }
+.home .open-label {
+  border: 1px solid #795268; border-radius: 999px;
+  padding: 0 16px; min-height: 44px; width: fit-content;
+  font-size: 14px; font-weight: 600;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+.home .card:active .open-label { background: var(--accent); color: #25131e; }
+@media (hover:hover) and (pointer:fine) {
+  .home .card:hover .open-label { background: var(--accent); color: #25131e; border-color: var(--accent); }
+}
+@media (max-width:600px) {
+  header { padding: 20px 16px; }
+  main.home { flex: 1; padding: 0 20px; }
+  .home .grid { grid-template-rows: repeat(2, minmax(min-content,1fr)); gap: 0; align-content: stretch; }
+  .home .card {
+    grid-template-columns: minmax(0,46%) minmax(0,1fr);
+    gap: 16px; padding: 24px 0; align-content: center;
+    border-radius: 0;
+  }
+  .home .card:first-child { border-bottom: 1px solid #3c303b; }
+  .home .card h2 { font-size: clamp(25px,7vw,32px); margin-bottom: 12px; line-height: 1.1; }
+  .home .card p { font-size: 16px; line-height: 1.5; margin-bottom: 16px; }
+  .home .open-label { font-size: 12px; padding-inline: 12px; }
+  body:has(main.home) footer { margin-top: 0; padding-top: 20px; }
+}
+@media (max-width:360px) {
+  main.home { padding-inline: 16px; }
+  .home .card { gap: 12px; grid-template-columns: minmax(0,42%) minmax(0,1fr); padding-block: 16px; }
+  .home .card h2 { font-size: 25px; }
+  .home .card p { font-size: 15px; margin-bottom: 8px; }
+  .home .open-label { padding-inline: 8px; }
+}
