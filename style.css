@@ -272,3 +272,71 @@ article summary { width: fit-content; padding-inline: 4px; }
   inline-size: clamp(24px, 5vw, 38px);
 }
 .hero img { align-self: start; }
+
+/* Match the portfolio's flat color swaps on interactive elements. */
+:root {
+  --surface: #151419;
+  --panel: #211f27;
+  --edge: #3a3642;
+  --accent: #ff87c4;
+  --star-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 32 32'%3E%3Cpath d='m16 2 4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z' fill='%23ff87c4' stroke='%23151419' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --star-action: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 32 32'%3E%3Cpath d='m16 2 4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z' fill='%23F9DA44' stroke='%23151419' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+header { background: var(--surface); border-color: var(--edge); }
+main { max-width: 760px; }
+main:has(.grid) { margin-block: auto; }
+main:has(.grid) h1 { font-size: clamp(1.85rem, 5vw, 3.25rem); }
+.grid { width: min(100%, 600px, max(240px, calc(200svh - 510px))); }
+.card { --action: var(--accent); border-radius: 24px; }
+.card img { border-radius: 0 0 16px 16px; }
+.card h2 { margin-block: 9px 4px; }
+.card p { line-height: 1.35; }
+.card::before { background: var(--action); }
+.card:nth-child(1) { --hover-fill: #F9DA44; --hover-ink: #151419; }
+.card:nth-child(2) { --hover-fill: #1C49AE; --hover-ink: #fff; }
+
+.card:focus-visible, .card:active {
+  background: var(--hover-fill);
+  border-color: var(--hover-fill);
+  color: var(--hover-ink);
+}
+.card:focus-visible p, .card:active p { color: inherit; }
+
+@media (hover: hover) and (pointer: fine) {
+  html, body { cursor: var(--star-cursor) 15 15, auto; }
+  a[href], summary { cursor: var(--star-action) 15 15, pointer; }
+  .card {
+    transition: background-color 170ms ease, border-color 170ms ease, color 170ms ease, transform 170ms ease;
+  }
+  .card:hover {
+    background: var(--hover-fill);
+    border-color: var(--hover-fill);
+    color: var(--hover-ink);
+    transform: translateY(-3px);
+  }
+  .card:hover p { color: inherit; }
+  main > a:hover, .episodes a:not([aria-current]):hover {
+    background: #F9DA44;
+    border-color: #F9DA44;
+    color: #151419;
+  }
+}
+
+@media (max-width: 580px) {
+  main { padding-inline: 14px; }
+  main:has(.grid) { margin-block: auto; }
+  .grid { width: min(100%, 420px, max(216px, calc(200svh - 430px))); }
+  .card { border-radius: 20px; }
+  .card h2, .card p { margin-inline-start: 9px; }
+  .card h2 { font-size: 1.05rem; }
+  .card p { font-size: .8125rem; margin-inline-end: 9px; padding-block-end: 31px; }
+  .card::before { inset-inline-end: 9px; inset-block-end: 9px; width: 28px; height: 28px; }
+  .card::after { inset-inline-end: 18px; inset-block-end: 17px; }
+  .episodes a { min-height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  .card:hover { transform: none; }
+}
