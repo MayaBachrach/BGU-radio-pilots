@@ -129,3 +129,60 @@ summary { cursor: pointer; min-height: 44px; align-content: center; border-radiu
     border-radius: 16px;
   }
 }
+
+/* Pink, cover-led layout inspired by an app feed. */
+:root {
+  --surface: #fff7fb;
+  --panel: #ffe8f3;
+  --ink: #321126;
+  --accent: #9b1758;
+  --edge: #efbed9;
+}
+
+body { background: var(--surface); color: var(--ink); }
+header {
+  border-bottom: 1px solid var(--edge);
+  color: var(--accent);
+  font-size: .875rem;
+}
+main { width: min(100%, 800px); }
+main:has(.grid) { text-align: center; }
+main > p { color: var(--accent); }
+.grid { margin-inline: auto; gap: clamp(10px, 2vw, 20px); }
+.card {
+  overflow: hidden;
+  padding: 0 0 12px;
+  border-color: var(--edge);
+  border-radius: 26px;
+  background: var(--panel);
+  text-align: start;
+}
+.card img { border-radius: 0 0 20px 20px; }
+.card h2, .card p { margin-inline: 12px; }
+.card p { color: var(--accent); }
+footer { color: var(--accent); }
+
+main > a, .episodes a, article {
+  border-color: var(--edge);
+  background: var(--panel);
+}
+.episodes a[aria-current] { background: var(--accent); color: #fff; }
+a:focus-visible, summary:focus-visible { outline-color: var(--accent); }
+
+@media (hover: hover) {
+  .card:hover, main > a:hover, .episodes a:not([aria-current]):hover {
+    background: #ffd4e9;
+  }
+}
+
+@media (max-width: 580px) {
+  header { padding-block: 10px; }
+  main > p { margin-block-end: 14px; }
+  .hero img { border-radius: 20px; }
+  article { padding: 12px 14px; }
+}
+
+@media (max-height: 540px) {
+  .grid { width: min(100%, max(208px, calc(200svh - 440px))); }
+  main:has(.grid) h1 { font-size: clamp(1.5rem, 5vh, 2.25rem); }
+}
