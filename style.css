@@ -187,3 +187,43 @@ a:focus-visible, summary:focus-visible { outline-color: var(--accent); }
   .grid { width: min(100%, max(208px, calc(200svh - 440px))); }
   main:has(.grid) h1 { font-size: clamp(1.5rem, 5vh, 2.25rem); }
 }
+
+/* Keep the covers dominant and make the listening route visible. */
+:root { color-scheme: dark; }
+header, footer { color: #dcbdd0; }
+main:has(.grid) h1 { font-weight: 900; letter-spacing: -.035em; }
+main > p, .card p { color: #e3c9d9; }
+.card { position: relative; padding-block-end: 15px; }
+.card h2, .card p { margin-inline-end: 54px; }
+.card::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 15px;
+  inset-block-end: 22px;
+  width: 0;
+  height: 0;
+  border-block: 6px solid transparent;
+  border-left: 9px solid #28101f;
+  filter: drop-shadow(0 0 0 #28101f);
+  pointer-events: none;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset-inline-end: 6px;
+  inset-block-end: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+}
+.card:active { background: #422b3d; }
+
+@media (max-width: 420px) {
+  .card h2, .card p { margin-inline-end: 10px; }
+  .card h2 { margin-inline-end: 39px; min-height: 2.4em; }
+  .card::before { width: 28px; height: 28px; inset-block-end: 10px; }
+  .card::after { inset-block-end: 18px; }
+  .card p { margin-inline-end: 39px; }
+}
