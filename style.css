@@ -244,3 +244,31 @@ article summary { width: fit-content; padding-inline: 4px; }
   .card h2 { min-height: 0; }
   .episodes a { min-height: 48px; }
 }
+
+.station-name {
+  color: var(--accent);
+  font-size: 1.15em;
+  font-weight: 900;
+}
+.card, .hero { position: relative; }
+.card img { position: relative; }
+.card::before, .card::after { z-index: 1; }
+.card h2::before, .hero::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 9px;
+  inset-inline-end: 9px;
+  inline-size: clamp(32px, 7vw, 52px);
+  aspect-ratio: 1;
+  border: 1px solid #fff;
+  border-radius: 24%;
+  background: #fff url("https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_nologo400/2274164/2274164-1572818167385-c4308c7610376.jpg") center / contain no-repeat;
+  pointer-events: none;
+}
+.hero::before {
+  inset-inline-start: 5px;
+  inset-inline-end: auto;
+  inset-block-start: 5px;
+  inline-size: clamp(24px, 5vw, 38px);
+}
+.hero img { align-self: start; }
