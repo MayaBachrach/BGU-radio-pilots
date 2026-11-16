@@ -176,7 +176,7 @@ body:has(main.home) footer { margin-top: 0; }
     width: 100%;
   }
   .home .grid {
-    max-width: min(100%, calc(200svh - 520px));
+    max-width: min(100%, max(420px, calc(200svh - 700px)));
     margin-inline: auto;
   }
 }
