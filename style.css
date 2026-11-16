@@ -132,16 +132,17 @@ summary { cursor: pointer; min-height: 44px; align-content: center; border-radiu
 
 /* Pink, cover-led layout inspired by an app feed. */
 :root {
-  --surface: #fff7fb;
-  --panel: #ffe8f3;
-  --ink: #321126;
-  --accent: #9b1758;
-  --edge: #efbed9;
+  --surface: #151016;
+  --panel: #241b25;
+  --ink: #fff4fa;
+  --accent: #ff70b7;
+  --edge: #4b3244;
 }
 
 body { background: var(--surface); color: var(--ink); }
 header {
   border-bottom: 1px solid var(--edge);
+  background: var(--panel);
   color: var(--accent);
   font-size: .875rem;
 }
@@ -166,12 +167,12 @@ main > a, .episodes a, article {
   border-color: var(--edge);
   background: var(--panel);
 }
-.episodes a[aria-current] { background: var(--accent); color: #fff; }
+.episodes a[aria-current] { background: var(--accent); color: #241021; }
 a:focus-visible, summary:focus-visible { outline-color: var(--accent); }
 
 @media (hover: hover) {
   .card:hover, main > a:hover, .episodes a:not([aria-current]):hover {
-    background: #ffd4e9;
+    background: #382637;
   }
 }
 
